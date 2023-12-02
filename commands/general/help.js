@@ -9,12 +9,16 @@ module.exports = {
         .setColor("#ff6ad5")
         .setTitle("【 𝓦 𝓪 𝓿 𝔂 】  Commands")
         .setThumbnail(
-          "https://i.ibb.co/sPHLCMN/DALL-E-2023-11-27-17-14-20.png"
+          "https://i.ibb.co/68Ry6ws/Wavy-1.png"
         )
         .addFields(
           {
-            name: "</help:1178656904835240039>",
+            name: "</wallet:1178672893371097109>",
             value: "Check your 𝓦 𝓪 𝓿 𝔂 Wallet"
+          },
+          {
+            name: "</market:1180442814350377012>",
+            value: "Buy server perks in the 𝓦 𝓪 𝓿 𝔂  Market!"
           },
           {
             name: "</edit:1178663787969138718>",
@@ -32,7 +36,7 @@ module.exports = {
         )
         .setFooter({
           text: "Type commands in any  𝓦 𝓪 𝓿 𝔂  text channel",
-          iconURL: 'https://i.ibb.co/sPHLCMN/DALL-E-2023-11-27-17-14-20.png'
+          iconURL: 'https://i.ibb.co/68Ry6ws/Wavy-1.png'
         });
 
         await interaction.reply({ embeds: [embed] })

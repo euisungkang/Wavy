@@ -67,10 +67,10 @@ function getEmbed(user) {
     let embed = new EmbedBuilder()
     .setColor('#ff6ad5')
     .setTitle("【 𝓦 𝓪 𝓿 𝔂 】  Receipts")
-    .setThumbnail('https://i.ibb.co/sPHLCMN/DALL-E-2023-11-27-17-14-20.png')
+    .setThumbnail('https://i.ibb.co/68Ry6ws/Wavy-1.png')
     .setFooter({
         text: 'Try /help to learn about all 𝓦 𝓪 𝓿 𝔂 commands',
-        iconURL: 'https://i.ibb.co/sPHLCMN/DALL-E-2023-11-27-17-14-20.png'
+        iconURL: 'https://i.ibb.co/68Ry6ws/Wavy-1.png'
     });
 
     if (enabled)

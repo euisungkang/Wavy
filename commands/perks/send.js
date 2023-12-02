@@ -85,7 +85,7 @@ function receiptFormat() {
     let embed = new EmbedBuilder()
         .setColor("#ff6ad5")
         .setTitle("【 𝓦 𝓪 𝓿 𝔂 】  Transaction Record")
-        .setThumbnail("https://i.ibb.co/sPHLCMN/DALL-E-2023-11-27-17-14-20.png")
+        .setThumbnail("https://i.ibb.co/68Ry6ws/Wavy-1.png")
 
     return embed
 }

@@ -1,11 +1,10 @@
 const { SlashCommandBuilder, EmbedBuilder } = require('discord.js')
-//const market = require('../../features/market')
 const database = require('../../firebaseSDK')
 
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('market')
-        .setDescription('Access the  𝓦 𝓪 𝓿 𝔂  Market!'),
+        .setDescription('Buy server perks in the 𝓦 𝓪 𝓿 𝔂  Market!'),
     async execute(interaction) {
         let embed = await getEmbed()
 
@@ -502,7 +501,7 @@ async function sendRestrictMessage(product, member) {
     const embed = new EmbedBuilder()
     .setColor('#ff6ad5')
     .setTitle('【 𝓦 𝓪 𝓿 𝔂 】  Market')
-    .setThumbnail('https://i.ibb.co/FXbw7wp/Wavy-store.jpg')
+    .setThumbnail('https://i.ibb.co/68Ry6ws/Wavy-1.png')
     .setDescription("Your name has been **restricted** (market product) for 1 week!: " + new Date().toLocaleDateString() + " ~ " + new Date(product.date).toLocaleDateString() +
                     "\n\nYour nickname has been restricted to **" + product.newNickname +
                     "**\nYour name will be changed back to **" + product.oldNickname + "** after a week")
@@ -514,7 +513,7 @@ async function sendUnrestrictMessage(product, member) {
     const embed = new EmbedBuilder()
     .setColor('#ff6ad5')
     .setTitle('【 𝓦 𝓪 𝓿 𝔂 】  Market')
-    .setThumbnail('https://i.ibb.co/FXbw7wp/Wavy-store.jpg')
+    .setThumbnail('https://i.ibb.co/68Ry6ws/Wavy-1.png')
     .setDescription("Your name restriction (market product) has been **lifted** as of: " + new Date().toLocaleDateString() +
                     "\n\nYour nickname has been changed from **" + product.newNickname + "** back to **" + product.oldNickname + "**")
 
@@ -569,7 +568,7 @@ async function getEmbed() {
     const embed = new EmbedBuilder()
     .setColor('#ff6ad5')
     .setTitle('【 𝓦 𝓪 𝓿 𝔂 】  Market')
-    .setThumbnail('https://i.ibb.co/FXbw7wp/Wavy-store.jpg')
+    .setThumbnail('https://i.ibb.co/68Ry6ws/Wavy-1.png')
     .setDescription("To purchase a product, click on the <:WavyBucks:1178672306999021588>, and I will attend you.\n\n" +
                     "Make sure you know the product ID before you purchase.")
     .addFields(

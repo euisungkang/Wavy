@@ -1,6 +1,5 @@
 const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
 const database = require('../../firebaseSDK');
-// const market = require('../../features/market')
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -8,6 +7,9 @@ module.exports = {
         .setDescription('Edit your perks from Wavy Market, Raffle, and more!'),
     async execute(interaction) {
         console.log(interaction.guild)
+
+        await interaction.reply("𝓦 𝓪 𝓿 𝔂 /edit under construction!")
+        setTimeout(() => interaction.deleteReply(), 5000);
     }
 }
 
