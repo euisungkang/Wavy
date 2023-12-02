@@ -1,6 +1,6 @@
 const path = require('node:path')
 const fs = require('node:fs')
-const database = require('./firebaseSDK')
+// const database = require('./firebaseSDK')
 const { token } = require('./config.json')
 const {Client, Collection, GatewayIntentBits, Events } = require("discord.js");
 const client = new Client({
@@ -16,7 +16,6 @@ const client = new Client({
         GatewayIntentBits.DirectMessageReactions
     ]
 });
-
 
 // Register Commands
 

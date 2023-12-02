@@ -528,6 +528,14 @@ async function getAllWallets() {
     return userDB.docs.map(doc => doc.data())
 }
 
+async function checkNotif(id) {
+    const notif = db.collection("notification").doc(id);
+  
+    const doc = await notif.get();
+    if (doc.exists) return false;
+    else return true;
+  }
+
 module.exports = {
     walletStatus : walletStatus,
     getMarketMessage : getMarketMessage,
@@ -563,4 +571,5 @@ module.exports = {
     getAllSubscriptions : getAllSubscriptions,
     getRolePositions : getRolePositions,
     getAllWallets : getAllWallets,
+    checkNotif : checkNotif,
 }

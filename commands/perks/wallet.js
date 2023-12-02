@@ -15,6 +15,7 @@ module.exports = {
         today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
 
         let embed = new EmbedBuilder()
+        .setColor("#ff6ad5")
         .setTitle("【 𝓦 𝓪 𝓿 𝔂 】  Wallet")
         .setThumbnail("https://i.ibb.co/sPHLCMN/DALL-E-2023-11-27-17-14-20.png")
         .setDescription(
