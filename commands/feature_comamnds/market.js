@@ -1,96 +1,65 @@
-const { EmbedBuilder } = require('discord.js');
-const database = require('../firebaseSDK');
-const axios = require('axios')
+const { SlashCommandBuilder, EmbedBuilder } = require('discord.js')
+//const market = require('../../features/market')
+const database = require('../../firebaseSDK')
 
 module.exports = {
-    updateMarket : updateMarket,
-//     awaitMarketReaction : awaitMarketReaction,
-//     sendRestrictMessage : sendRestrictMessage,
-//     sendUnrestrictMessage : sendUnrestrictMessage,
-//     awaitResponse : awaitResponse,
-//     validHexColor : validHexColor,
-//     getRoleCreationInput : getRoleCreationInput
-}
+    data: new SlashCommandBuilder()
+        .setName('market')
+        .setDescription('Access the  𝓦 𝓪 𝓿 𝔂  Market!'),
+    async execute(interaction) {
+        let embed = await getEmbed()
 
-async function updateMarket(channel) {
-    console.log("Market Ready")
+        let message = await interaction.reply({ embeds: [embed], fetchReply: true })
+        await message.react('<:WavyBucks:1178672306999021588>')
 
-    let embed = await getEmbed();
-    let mktID = await database.getMarketMessage();
-
-    let exists = true;
-    try {
-        await channel.messages.fetch(mktID)
-    } catch (error) {
-        console.error(error)
-        exists = false;
-    } finally {
-        if (!exists) {
-            let msg = await channel.send({ embeds: [embed] })
-            msg.react('<:HentaiCoin:814968693981184030>')
-            database.updateMarketMessage(msg.id)
-            return msg;
-        } else {
-            let msg = await channel.messages.fetch(mktID)
-            msg.react('<:HentaiCoin:814968693981184030>')
-            msg.edit(embed);
-            return msg
+        const collectorFilter = (reaction, user) => {
+            return ['WavyBucks'].includes(reaction.emoji.name) && user.id === interaction.user.id;
         }
+
+        await message.awaitReactions({ filter: collectorFilter, max: 1, time: 30000, errors: ['time']})
+        .then(async collected => {
+            const reaction = collected.first()
+
+            if (reaction.emoji.name == 'WavyBucks') {
+
+                await productPurchase(interaction).catch(err => console.log(error));
+                
+            }
+        })
+        .catch(collected => {
+            message.reply("Timed Out. Try /market again if you want to proceed")
+
+            setTimeout(() => {
+                interaction.deleteReply()
+            }, 5000);
+        })
+
+        setTimeout(() => interaction.deleteReply(), 5000);
     }
 }
 
-
-
-async function updateMarket(channel) {
-    console.log("updating market");
-    //channel.send({ content: {files: ['https://i.ibb.co/FXbw7wp/Wavy-store.jpg']})
-    //channel.send({ content: "Welcome to the 【 𝓦 𝓪 𝓿 𝔂 】 market.\n\nIn the market, you will be able to spend your :HentaiCoin: to buy any of the server perks you want, whenever you want.\n\n**Click the <:HentaiCoin:814968693981184030> reaction, and we'll attend you.**\n\n__**Market Status: **__")
-    //channel.send({ content: "__**Market Status: **__\n```diff\n- Currently Offline. Under Maintenance, there will be more products added soon.\n```")
-
-    let embed = await getEmbed();
-    let mktID = await database.getMarketMessage()
-
-
-}
-
-async function awaitMarketReaction(message, channel, logs, guild, filter) {
-    console.log("awaiting market reaction")
-    let user;
-
-    await message.awaitReactions({ filter, max: 1 }).catch(err => console.log(err))
-    .then(async collected => {
-        user = collected.first().users.cache.last()
-        await message.reactions.cache.find(r => r.emoji.id == '814968693981184030').users.remove(user)
-    })
-    .catch(err => console.log(err))
-
-    await productPurchase(user, channel, logs, guild).catch(err => console.log(err))
-
-    await deleteAll(channel)
-
-    awaitMarketReaction(message, channel, logs, guild, filter);
-}   
-
-async function productPurchase(user, channel, logs, guild) {
+async function productPurchase(interaction) {
     let products = await database.getProducts();
 
-    await channel.send({ content: "<@" + user.id + "> Enter the ID of the product you want to purchase. Your **cumulative** balance is: "
-                        +  await database.getCum(user.id) + " <:HentaiCoin:814968693981184030>" })
+    await interaction.channel.send({ content: "<@" + interaction.user.id + "> Enter the ID of the product you want to purchase. Your **cumulative** balance is: "
+                        +  await database.getCum(interaction.user.id) + " <:HentaiCoin:814968693981184030>" })
 
-    let filter = (m) => m.author.id == user.id;
+    let filter = (m) => m.author.id == interaction.user.id;
 
     //What product does the user want to buy?
-    let productID = await awaitResponse(channel, filter, 30000, false)
+    let productID = await awaitResponse(interaction.channel, filter, 30000, false)
     if (productID === false)
         return
             
-    await confirmProduct(channel, logs, productID, guild, user, products)
+    await confirmProduct(interaction, productID, products)
 
     const wait = delay => new Promise(resolve => setTimeout(resolve, delay));
     await wait(5000);
 }
 
-async function confirmProduct(channel, message, guild, user, products) {
+async function confirmProduct(interaction, message, products) {
+    let user = interaction.user
+    let channel = interaction.channel
     let wallet = await database.getCum(user.id)
     
     // Edge Cases for Product ID
@@ -109,7 +78,6 @@ async function confirmProduct(channel, message, guild, user, products) {
         return await channel.send({ content: "The product ID you entered is not valid in the market.\nDouble check the product's ID, and try again" })
 
     let product = products[productID]
-    console.log(product)
 
     // Edge Cases for Currency Calculation
     if (wallet < Number(product.price))
@@ -124,7 +92,7 @@ async function confirmProduct(channel, message, guild, user, products) {
     confirmation.react('✅')
     confirmation.react('❌')
     
-    const filter = (reaction, user) => (reaction.emoji.name == '✅' || reaction.emoji.name == '❌') && user.id != '813021543998554122'
+    const filter = (reaction, user) => (reaction.emoji.name == '✅' || reaction.emoji.name == '❌') && user.id === interaction.user.id
     let reaction = await confirmation.awaitReactions({ filter, max: 1, time: 30000 }).catch(err => console.log(err))
 
     let emoji = reaction.first().emoji.name
@@ -136,13 +104,13 @@ async function confirmProduct(channel, message, guild, user, products) {
     } else {
         let remaining = wallet - product.price
 
-        if (await processProduct(user, channel, guild, productID) == false)
+        if (await processProduct(interaction, productID) == false)
             return
 
         console.log(user.id + "      " + user.username + " purchased " + product.name +
         "     Before: " + wallet + " After: " + remaining)
 
-        database.removeCum(user, product.price)
+        //database.removeCum(user, product.price)
 
         await channel.send({ content: "Your order was successful.\n**" + product.name + "** has been purchased.\n"
                                 + "Your remaining **cumulative** balance is: " + remaining + " <:HentaiCoin:814968693981184030>" })
@@ -161,7 +129,10 @@ async function confirmProduct(channel, message, guild, user, products) {
     return
 }
 
-async function processProduct(user, channel, guild, productID) {
+async function processProduct(interaction, productID) {
+    let user = interaction.user
+    let channel = interaction.channel
+    let guild = interaction.guild
     let members = guild.members
 
     if (productID == 0) {
@@ -456,83 +427,6 @@ async function processProduct(user, channel, guild, productID) {
     return false
 }
 
-async function deleteAll(channel) {
-    let filtered;
-    do {
-        let mktID = await database.getMarketMessage()
-        let fetched = await channel.messages.fetch({ limit: 100 })
-        filtered = fetched.filter(msg => msg.id != mktID)
-        //console.log(filtered)
-        if (filtered.size > 0)
-            channel.bulkDelete(filtered)
-    } while(filtered.size >= 2)
-}
-
-async function awaitResponse(channel, filter, time, charLimit) {
-    let collected = await channel.awaitMessages({ filter, max: 1, time: time, errors: ['time'] })
-    .catch(err => {
-        console.log(err)
-        return null;
-    })
-    if (collected == null) {
-        return false
-    } 
-    
-    if (charLimit && (collected.first().content.length < 1 || collected.first().content.length > 32)) {
-        channel.send({ content: "Nicknames must be within 1 - 32 characters long" })
-        return false
-    }
-
-    return collected.first().content
-}
-
-async function sendRestrictMessage(product, member) {
-    const embed = new EmbedBuilder()
-    .setColor('#ff6ad5')
-    .setTitle('【 𝓦 𝓪 𝓿 𝔂 】  Market')
-    .setThumbnail('https://i.ibb.co/FXbw7wp/Wavy-store.jpg')
-    .setDescription("Your name has been **restricted** (market product) for 1 week!: " + new Date().toLocaleDateString() + " ~ " + new Date(product.date).toLocaleDateString() +
-                    "\n\nYour nickname has been restricted to **" + product.newNickname +
-                    "**\nYour name will be changed back to **" + product.oldNickname + "** after a week")
-
-    await member.send({ embeds: [embed] }).catch(err => { console.log(err) })
-}
-
-async function sendUnrestrictMessage(product, member) {
-    const embed = new EmbedBuilder()
-    .setColor('#ff6ad5')
-    .setTitle('【 𝓦 𝓪 𝓿 𝔂 】  Market')
-    .setThumbnail('https://i.ibb.co/FXbw7wp/Wavy-store.jpg')
-    .setDescription("Your name restriction (market product) has been **lifted** as of: " + new Date().toLocaleDateString() +
-                    "\n\nYour nickname has been changed from **" + product.newNickname + "** back to **" + product.oldNickname + "**")
-
-    await member.send({ embeds: [embed] }).catch(err => console.log(err))
-
-    console.log("Succesfully removed name restriction from " + member.user.id)
-}
-
-function downloadIcon(url) {
-    return axios
-        .get(url, {
-            responseType: 'arraybuffer'
-        })
-        .then(
-            response => Buffer.from(response.data, 'base64')
-        )
-}
-
-async function validHexColor(channel, color) {
-    if (/^#[0-9A-F]{6}$/i.test(color) || /^[0-9A-F]{6}$/i.test(color)) {
-        if (/^[0-9A-F]{6}$/i.test(color))
-            color = "#" + color
-        return color
-    } else {
-        await channel.send({ content: "Please enter a valid hex code.\nAllowed formats are 6 digits of 0-9 or A-F (i.e #CEA2D7 **or** CEA2D7)" +
-                                      "\nUse this online color picker to get your desired code:* <https://htmlcolorcodes.com/color-picker/>" })
-        return false
-    }
-}
-
 async function getRoleCreationInput(channel, user, option) {
 
     let filter = (m) => m.author.id == user.id;
@@ -604,63 +498,94 @@ async function getRoleCreationInput(channel, user, option) {
     return [name, color, icon]
 }
 
-async function processRoleRequest(channel, guild, target, productID) {
-    let user = target.user
+async function sendRestrictMessage(product, member) {
+    const embed = new EmbedBuilder()
+    .setColor('#ff6ad5')
+    .setTitle('【 𝓦 𝓪 𝓿 𝔂 】  Market')
+    .setThumbnail('https://i.ibb.co/FXbw7wp/Wavy-store.jpg')
+    .setDescription("Your name has been **restricted** (market product) for 1 week!: " + new Date().toLocaleDateString() + " ~ " + new Date(product.date).toLocaleDateString() +
+                    "\n\nYour nickname has been restricted to **" + product.newNickname +
+                    "**\nYour name will be changed back to **" + product.oldNickname + "** after a week")
 
-    // Configure pos based on tier of product
-    let pos
-    let tier
+    await member.send({ embeds: [embed] }).catch(err => { console.log(err) })
+}
 
-    if (productID == 0) {
-        let royalty = await guild.roles.fetch('813024016776167485')
-        pos = royalty.position + 1
-        tier = 4
-    } else if (productID == 1) {
-        //Wavy Role
-        let wavyRole = await guild.roles.fetch('687840476744908815')
-        pos = wavyRole.position + 1
-        tier = 3
-    } else if (productID == 2) {
-        //Groovy Role
-        let groovyRole = await guild.roles.fetch('812983666136842241')
-        pos = groovyRole.position + 1
-        tier = 2
+async function sendUnrestrictMessage(product, member) {
+    const embed = new EmbedBuilder()
+    .setColor('#ff6ad5')
+    .setTitle('【 𝓦 𝓪 𝓿 𝔂 】  Market')
+    .setThumbnail('https://i.ibb.co/FXbw7wp/Wavy-store.jpg')
+    .setDescription("Your name restriction (market product) has been **lifted** as of: " + new Date().toLocaleDateString() +
+                    "\n\nYour nickname has been changed from **" + product.newNickname + "** back to **" + product.oldNickname + "**")
+
+    await member.send({ embeds: [embed] }).catch(err => console.log(err))
+
+    console.log("Succesfully removed name restriction from " + member.user.id)
+}
+
+function downloadIcon(url) {
+    return axios
+        .get(url, {
+            responseType: 'arraybuffer'
+        })
+        .then(
+            response => Buffer.from(response.data, 'base64')
+        )
+}
+
+async function validHexColor(channel, color) {
+    if (/^#[0-9A-F]{6}$/i.test(color) || /^[0-9A-F]{6}$/i.test(color)) {
+        if (/^[0-9A-F]{6}$/i.test(color))
+            color = "#" + color
+        return color
     } else {
-        // Aesthetic Role
-        let aesthethicRole = await guild.roles.fetch('812926342249185320')
-        pos = aesthethicRole.position + 1
-        tier = 1
+        await channel.send({ content: "Please enter a valid hex code.\nAllowed formats are 6 digits of 0-9 or A-F (i.e #CEA2D7 **or** CEA2D7)" +
+                                      "\nUse this online color picker to get your desired code:* <https://htmlcolorcodes.com/color-picker/>" })
+        return false
+    }
+}
+
+async function awaitResponse(channel, filter, time, charLimit) {
+    let collected = await channel.awaitMessages({ filter, max: 1, time: time, errors: ['time'] })
+    .catch(err => {
+        console.log(err)
+        return null;
+    })
+    if (collected == null) {
+        return false
+    } 
+    
+    if (charLimit && (collected.first().content.length < 1 || collected.first().content.length > 32)) {
+        channel.send({ content: "Nicknames must be within 1 - 32 characters long" })
+        return false
     }
 
-    await channel.send({ content: "What do you want your custom role to be called?\nYou can always change this later with the *$edit* command" })
+    return collected.first().content
+}
 
-    let roleInput = await getRoleCreationInput(channel, user, "Tier " + (tier).toString() + " Custom Role")
-    if (roleInput === false)
-        return false
+async function getEmbed() {
+    let products = await database.getProducts();
 
-    let role = await guild.roles.create({
-        name: roleInput[0],
-        color: roleInput[1],
-        hoist: true,
-        permissions: [],
-        position: pos,
-        mentionable: true,
-        icon: roleInput[2].url
+    const embed = new EmbedBuilder()
+    .setColor('#ff6ad5')
+    .setTitle('【 𝓦 𝓪 𝓿 𝔂 】  Market')
+    .setThumbnail('https://i.ibb.co/FXbw7wp/Wavy-store.jpg')
+    .setDescription("To purchase a product, click on the <:WavyBucks:1178672306999021588>, and I will attend you.\n\n" +
+                    "Make sure you know the product ID before you purchase.")
+    .addFields(
+        { name: '\u200B', value: '\u200B' }
+    )
+
+    await products.forEach((p, i) => {
+        embed.addFields(
+            { name: i + ": " + p.name, value: p.description + "\n**Price: " + products[i].price + "** <:WavyBucks:1178672306999021588>" }
+        )
+        embed.addFields(
+            { name: "Product ID: " + i, value: "\u200B" }
+        )
     })
 
-    target.roles.add(role)
-
-    await channel.send({ content: "**Creating Custom Tier " + tier + " Role...**\nKeep in mind you can edit or upgrade your custom role tier, if eligible, using the $edit command" })
-
-    console.log("Tier " + tier + " role has been created for " + user.username + " called " + roleInput[0] +
-    "\nBadge Color: " + roleInput[1])
-
-    database.updateRoles(user.id, role, tier)
-
-    const wait = delay => new Promise(resolve => setTimeout(resolve, delay));
-    await wait(5000);
-
-    return true
+    return embed;
 }
 
 function gcd (a,b) {
@@ -668,4 +593,3 @@ function gcd (a,b) {
         return a
     return gcd (b, a % b)
 }
-
