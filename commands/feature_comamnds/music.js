@@ -2,13 +2,7 @@ const { SlashCommandBuilder } = require('discord.js')
 const ytdl = require('ytdl-core-discord');
 const play = require('play-dl')
 
-const { joinVoiceChannel, createAudioPlayer, NoSubscriberBehavior, createAudioResource  } = require('@discordjs/voice');
-
-// const connection = joinVoiceChannel({
-// 	channelId: channel.id,
-// 	guildId: channel.guild.id,
-// 	adapterCreator: channel.guild.voiceAdapterCreator,
-// });
+const { joinVoiceChannel, createAudioPlayer, VoiceConnectionStatus, entersState, NoSubscriberBehavior, createAudioResource  } = require('@discordjs/voice');
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -35,11 +29,18 @@ module.exports = {
                 noSubscriber: NoSubscriberBehavior.Play
             }
         })
+        
+        try {
+            //console.log(player)
+            await player.play(resource)
 
-        //console.log(player)
-        await player.play(resource)
+            let c = await connection.subscribe(player)
+        } catch (error) {
+            console.log(error)
+            connection.destroy()
+        }
 
-        connection.subscribe(player)
+        //console.log(c)
 
         await interaction.reply("Playing the 𝓦 𝓪 𝓿 𝔂 lofi radio");
         setTimeout(() => interaction.deleteReply(), 5000);
