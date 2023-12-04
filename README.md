@@ -52,15 +52,22 @@ Soon to be released publicly!
 
 # Features
 ### 𝓒𝓾𝓻𝓻𝓮𝓷𝓬𝔂
+<img alt="Currency" src="https://i.ibb.co/GFpjfnX/Wide-HD.png">
+
 ### 𝓜𝓪𝓻𝓴𝓮𝓽
 <img alt="Market" src="https://i.ibb.co/LCQV9xg/Wide-HD.png">
 
 ### 𝓡𝓪𝓯𝓯𝓵𝓮𝓼
+<img alt="Raffles" src="https://i.ibb.co/r37ZyV7/Wide-HD.png">
+
 ### 𝓒𝓪𝓼𝓲𝓷𝓸
 <img alt="Casino" src="https://i.ibb.co/dQQcVgR/Wide-HD.png">
 
 ### 𝓜𝓾𝓼𝓲𝓬 
+<img alt="Music" src="https://i.ibb.co/YXVjdLy/Wide-HD.png">
+
 ### 𝓡𝓮𝓬𝓮𝓲𝓹𝓽
+<img alt="Receipts" src="https://i.ibb.co/xGXsy0P/Wide-HD.png">
 
 # Join the community!
 
