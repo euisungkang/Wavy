@@ -74,7 +74,7 @@ An external database (Firestore) and Discord's voiceStateUpdate() feature allowe
 
 𝓒𝓾𝓻𝓻𝓮𝓷𝓬𝔂 calculation is performed while considering **inflation** across all servers:<br>
 $$Earnings\ Per\ User\ (EPU) = \dfrac{∀earnings\ +\ ∀spendings}{total\ number\ of\ users}$$
-$$CPI = \dfrac{EPU(∀servers)\ -\ EPU(server\ x)}{EPU(server\ x)}\ + \ 1$$
+$$Consumer\ Price\ Index\ (CPI) = \dfrac{EPU(∀servers)\ -\ EPU(server\ x)}{EPU(server\ x)}\ + \ 1$$
 $$if\ CPI\ < 0,\ CPI = 0$$
 $$Currency = \Big\lfloor \dfrac{(time\ connected\ -\ time\ disconnected) * CPI}{rate * 1000}\Big\rfloor$$
 
