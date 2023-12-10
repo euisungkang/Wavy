@@ -1,3 +1,10 @@
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<style>
+* {
+  font-family: 'Raleway', serif;
+}
+</style>
+
 <h1 align="center">
   <br>
   <a href="https://github.com/euisungkang/Wavy"><img src="https://i.ibb.co/Sm651sh/Wavy-Cover-2-HD.png" alt="【 𝓦 𝓪 𝓿 𝔂 】"></a>
@@ -52,7 +59,33 @@ Soon to be released publicly!
 
 # Features
 ### 𝓒𝓾𝓻𝓻𝓮𝓷𝓬𝔂
-<img alt="Currency" src="https://i.ibb.co/GFpjfnX/Wide-HD.png">
+<img alt="Currency" src="https://i.ibb.co/GFpjfnX/Wide-HD.png"><br>
+Unlike other *Economy/Currency* Discord bots, 【 𝓦 𝓪 𝓿 𝔂 】 rewards users by **time spent** in voice channels.<br>Thus, more active members earn significantly more. <br>
+A major consideration was the amount of theoretical traffic when users are active all at once. The original approach (assigning a dedicated listener to every user) quickly became a problem as the userbase increased:<br><br>
+
+<figure style="display: flex;">
+  <img alt="oldCurrency" src="./media/oldCurrency.png" style="width: 65vw"/>
+  <p style="font-size: 11px; align-self: center; padding: 1em">Time: O(n)<br>Space: O(n)</p>
+  <figcaption>
+</figure><br>
+
+Although JS's native asynchronous feature made for a simple and easy to implement solution, given users = n, time/space complexity of O(n) could be improved. To address said issue:
+
+<figure style="display: flex;">
+  <img alt="newCurrency" src="./media/newCurrency.png" style="width: 65vw"/>
+  <p style="font-size: 11px; align-self: center; padding: 1em">Time: O(1)<br>Space: O(n)</p>
+  <figcaption>
+</figure><br>
+
+An external database (Firestore) and Discord's voiceStateUpdate() feature allowed for a single, centralized listener to handle all voice channel connects and disconnects. Thus, improving time complexity to O(1), and significantly reducing the size of stored data from Event Listeners to a Date object.<br><br>
+
+𝓒𝓾𝓻𝓻𝓮𝓷𝓬𝔂 calculation is performed while considering **inflation** across all servers:<br>
+$$EPU = \dfrac{∀earnings\ +\ ∀spendings}{total\ number\ of\ users}$$
+$$CPI = \dfrac{EPU(∀servers)\ -\ EPU(server\ x)}{EPU(server\ x)}\ + \ 1$$
+$$if\ CPI\ < 0,\ CPI = 0$$
+$$Currency = \Big\lfloor \dfrac{(time\ connected\ -\ time\ disconnected) * CPI}{rate * 1000}\Big\rfloor$$
+
+$rate$ is base of 5, increased to 3 for server boosters
 
 ### 𝓜𝓪𝓻𝓴𝓮𝓽
 <img alt="Market" src="https://i.ibb.co/LCQV9xg/Wide-HD.png">

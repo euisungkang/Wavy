@@ -8,8 +8,6 @@ module.exports = {
 
         const connection = getVoiceConnection(client.guild.id);
 
-        //console.log(client)
-        //console.log(connection)
 
         if (connection) {
             connection.on(VoiceConnectionStatus.Disconnected, async (oldState, newState) => {
