@@ -1,10 +1,3 @@
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
-<style>
-* {
-  font-family: 'Raleway', serif;
-}
-</style>
-
 <h1 align="center">
   <br>
   <a href="https://github.com/euisungkang/Wavy"><img src="https://i.ibb.co/Sm651sh/Wavy-Cover-2-HD.png" alt="【 𝓦 𝓪 𝓿 𝔂 】"></a>
