@@ -65,7 +65,7 @@ A major consideration was the amount of theoretical traffic when users are activ
 Although JS's native asynchronous feature made for a simple and easy to implement solution, given $n\ =\ users$, time/space complexity of $O(n)$ could be improved. To address said issue:
 
 <figure style="display: flex;">
-  <img alt="newCurrency" src="./media/newCurrency.png" style="width: 65vw"/>
+  <img alt="newCurrency" src="./media/newCurrency.png" style="width: 100vw"/>
   <p style="font-size: 11px; align-self: center; padding: 1em">Time: $O(1)$<br>Space: $O(n)$</p>
   <figcaption>
 </figure><br>
