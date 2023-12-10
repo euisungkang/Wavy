@@ -76,14 +76,13 @@ An external database (*Firestore*) and Discord's *voiceStateUpdate()* feature al
 $$Earnings\ Per\ User\ (EPU) = \dfrac{∀earnings\ +\ ∀spendings}{total\ number\ of\ users}$$
 $$Consumer\ Price\ Index\ (CPI) = \dfrac{EPU(∀servers)\ -\ EPU(server\ x)}{EPU(server\ x)}\ + \ 1$$
 $$if\ CPI\ < 0,\ CPI = 0$$
-$$Currency = \Big\lfloor \dfrac{(time\ connected\ -\ time\ disconnected) * CPI}{rate}\Big\rfloor$$
+$$Currency = \Big\lfloor \dfrac{(time\ disconnected\ -\ time\ connected) * CPI}{rate}\Big\rfloor$$
 $rate$ *is base of 5, increased to 3 for server boosters*<br><br>
 **TL;DR: all users in servers with less activity will earn more coins**
 
 
 ### 𝓜𝓪𝓻𝓴𝓮𝓽, `/market`
 <img alt="Market" src="https://i.ibb.co/LCQV9xg/Wide-HD.png">
-
 
 
 ### 𝓡𝓪𝓯𝓯𝓵𝓮𝓼, `/raffle`
