@@ -93,7 +93,8 @@ $rate$ *is base of 5, increased to 3 for server boosters*<br><br>
 <img alt="Casino" src="https://i.ibb.co/dQQcVgR/Wide-HD.png">
 
 ### 𝓜𝓾𝓼𝓲𝓬, `/music`
-<img alt="Music" src="https://i.ibb.co/YXVjdLy/Wide-HD.png">
+<img alt="Music" src="https://i.ibb.co/YXVjdLy/Wide-HD.png"><br>
+Youtube, Spotify, and other music streaming platforms have been actively shutting down Discord bots with music features. To avoid copyright offenses, 【 𝓦 𝓪 𝓿 𝔂 】 `/music` feature will play a 24/7 curated lo-fi radio at your current voice channel.
 
 ### 𝓡𝓮𝓬𝓮𝓲𝓹𝓽, `/wallet` `/receipt`
 <img alt="Receipts" src="https://i.ibb.co/xGXsy0P/Wide-HD.png">
