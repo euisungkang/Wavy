@@ -70,29 +70,32 @@ Although JS's native asynchronous feature made for a simple and easy to implemen
   <figcaption>
 </figure><br>
 
-An external database (Firestore) and Discord's voiceStateUpdate() feature allowed for a single, centralized listener to handle all voice channel connects and disconnects. Thus, improving time complexity to O(1), and significantly reducing the size of stored data from Event Listeners to a Date object.<br><br>
+An external database (Firestore) and Discord's voiceStateUpdate() feature allowed for a single, centralized listener to handle all voice channel connects and disconnects. Thus, improving time complexity to O(1), and significantly reducing the size of stored data from Event Listeners to a Date object.<br>
 
 𝓒𝓾𝓻𝓻𝓮𝓷𝓬𝔂 calculation is performed while considering **inflation** across all servers:<br>
 $$Earnings\ Per\ User\ (EPU) = \dfrac{∀earnings\ +\ ∀spendings}{total\ number\ of\ users}$$
 $$Consumer\ Price\ Index\ (CPI) = \dfrac{EPU(∀servers)\ -\ EPU(server\ x)}{EPU(server\ x)}\ + \ 1$$
 $$if\ CPI\ < 0,\ CPI = 0$$
 $$Currency = \Big\lfloor \dfrac{(time\ connected\ -\ time\ disconnected) * CPI}{rate * 1000}\Big\rfloor$$
+$rate$ *is base of 5, increased to 3 for server boosters*<br><br>
+**TL;DR: all users in servers with less activity will earn more coins**
 
-$rate$ is base of 5, increased to 3 for server boosters
 
-### 𝓜𝓪𝓻𝓴𝓮𝓽
+### 𝓜𝓪𝓻𝓴𝓮𝓽, `/market`
 <img alt="Market" src="https://i.ibb.co/LCQV9xg/Wide-HD.png">
 
-### 𝓡𝓪𝓯𝓯𝓵𝓮𝓼
+
+
+### 𝓡𝓪𝓯𝓯𝓵𝓮𝓼, `/raffle`
 <img alt="Raffles" src="https://i.ibb.co/r37ZyV7/Wide-HD.png">
 
-### 𝓒𝓪𝓼𝓲𝓷𝓸
+### 𝓒𝓪𝓼𝓲𝓷𝓸, `/casino`
 <img alt="Casino" src="https://i.ibb.co/dQQcVgR/Wide-HD.png">
 
-### 𝓜𝓾𝓼𝓲𝓬 
+### 𝓜𝓾𝓼𝓲𝓬, `/music`
 <img alt="Music" src="https://i.ibb.co/YXVjdLy/Wide-HD.png">
 
-### 𝓡𝓮𝓬𝓮𝓲𝓹𝓽
+### 𝓡𝓮𝓬𝓮𝓲𝓹𝓽, `/wallet` `/receipt`
 <img alt="Receipts" src="https://i.ibb.co/xGXsy0P/Wide-HD.png">
 
 # Join the community!
