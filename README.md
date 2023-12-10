@@ -80,7 +80,7 @@ Although JS's native asynchronous feature made for a simple and easy to implemen
 An external database (Firestore) and Discord's voiceStateUpdate() feature allowed for a single, centralized listener to handle all voice channel connects and disconnects. Thus, improving time complexity to O(1), and significantly reducing the size of stored data from Event Listeners to a Date object.<br><br>
 
 𝓒𝓾𝓻𝓻𝓮𝓷𝓬𝔂 calculation is performed while considering **inflation** across all servers:<br>
-$$EPU = \dfrac{∀earnings\ +\ ∀spendings}{total\ number\ of\ users}$$
+$$Earnings\ Per\ User\ (EPU) = \dfrac{∀earnings\ +\ ∀spendings}{total\ number\ of\ users}$$
 $$CPI = \dfrac{EPU(∀servers)\ -\ EPU(server\ x)}{EPU(server\ x)}\ + \ 1$$
 $$if\ CPI\ < 0,\ CPI = 0$$
 $$Currency = \Big\lfloor \dfrac{(time\ connected\ -\ time\ disconnected) * CPI}{rate * 1000}\Big\rfloor$$
