@@ -34,7 +34,9 @@ module.exports = {
         })
 
         setTimeout(() => interaction.deleteReply(), 5000);
-    }
+    },
+    validHexColor : validHexColor,
+    awaitResponse : awaitResponse
 }
 
 async function productPurchase(interaction) {
