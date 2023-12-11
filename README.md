@@ -84,14 +84,17 @@ $rate$ *is base of 5, increased to 3 for server boosters*<br><br>
 ### 𝓜𝓪𝓻𝓴𝓮𝓽, `/market` `/edit`
 <img alt="Market" src="https://i.ibb.co/LCQV9xg/Wide-HD.png">
 
-<p float="left">
-  <img alt="Market" src="./media/market.png" style="width: 40vw">
-
-  <div style="align-self: center; padding: 3em">
-    <h1>𝓜𝓪𝓻𝓴𝓮𝓽</h1>
-    <p>Upon typing <b>/market</b>, users are given a table of in-server perks available in the respective server. All perks stored in a separate database bucket, and payments are calculated with <b>cumulative</b> currency.</p>
-  </div>
-</p>
+<table>
+  <tr>
+    <td><img alt="Market" src="./media/market.png" style="width: 100%"></td>
+    <td>
+      <div style="padding: 1em">
+        <h1>𝓜𝓪𝓻𝓴𝓮𝓽</h1>
+        <p>Upon typing <b>/market</b>, users are given a table of in-server perks available in the respective server. All perks stored in a separate database bucket, and payments are calculated with <b>cumulative</b> currency.</p>
+      </div>
+    </td>
+  </tr>
+</table>
 
 
 ### 𝓡𝓪𝓯𝓯𝓵𝓮𝓼, `/raffle`
