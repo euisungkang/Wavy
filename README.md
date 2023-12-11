@@ -72,7 +72,7 @@ Although JS's native asynchronous feature made for a simple and easy to implemen
 
 An external database (*Firestore*) and Discord's *voiceStateUpdate()* feature allowed for a single, centralized listener to handle all voice channel connects and disconnects. Thus, improving time complexity to $O(1)$, and significantly reducing the size of stored data from Event Listeners to a Date object.<br>
 
-𝓒𝓾𝓻𝓻𝓮𝓷𝓬𝔂 calculation is performed while considering **inflation** across all servers:<br>
+𝓒𝓾𝓻𝓻𝓮𝓷𝓬𝔂 calculation is performed while considering '**inflation**' across all servers:<br>
 $$Earnings\ Per\ User\ (EPU) = \dfrac{∀earnings\ +\ ∀spendings}{total\ number\ of\ users}$$
 $$Consumer\ Price\ Index\ (CPI) = \dfrac{EPU(∀servers)\ -\ EPU(server\ x)}{EPU(server\ x)}\ + \ 1$$
 $$if\ CPI\ < 0,\ CPI = 0$$
@@ -81,8 +81,17 @@ $rate$ *is base of 5, increased to 3 for server boosters*<br><br>
 **TL;DR: all users in servers with less activity will earn more coins**
 
 
-### 𝓜𝓪𝓻𝓴𝓮𝓽, `/market`
+### 𝓜𝓪𝓻𝓴𝓮𝓽, `/market` `/edit`
 <img alt="Market" src="https://i.ibb.co/LCQV9xg/Wide-HD.png">
+
+<div style="display:flex">
+  <img alt="Market" src="./media/market.png" style="width: 40%">
+
+  <div style="align-self: center; padding: 3em">
+    <h1>𝓜𝓪𝓻𝓴𝓮𝓽</h1>
+    <p>Upon typing <b>/market</b>, users are given a table of in-server perks available in the respective server. All perks stored in a separate database bucket, and payments are calculated with <b>cumulative</b> currency.</p>
+  </div>
+</div>
 
 
 ### 𝓡𝓪𝓯𝓯𝓵𝓮𝓼, `/raffle`
@@ -96,10 +105,15 @@ $rate$ *is base of 5, increased to 3 for server boosters*<br><br>
 Youtube, Spotify, and other music streaming platforms have been actively shutting down Discord bots with music features. To avoid copyright offenses, 【 𝓦 𝓪 𝓿 𝔂 】 `/music` feature will play a 24/7 curated lo-fi radio at your current voice channel.
 
 ### 𝓡𝓮𝓬𝓮𝓲𝓹𝓽, `/wallet` `/receipt`
-<img alt="Receipts" src="https://i.ibb.co/xGXsy0P/Wide-HD.png">
+<img alt="Receipts" src="https://i.ibb.co/xGXsy0P/Wide-HD.png"><br>
+
+`/wallet`, when used, DMs the user a simple message with monthly + cumulative earnings<br>
+<img alt="/wallet" src="./media/wallet.png" style="width:50%">
+
+`/receipt`, gives users the ability to turn on/off automatic receipts after a voice channel session <br>
+<img alt="/receipt" src="./media/receipt.png" style="width:50%">
 
 # Join the community!
-
 
 # License
 
