@@ -89,9 +89,16 @@ $rate$ *is base of 5, increased to 3 for server boosters*<br><br>
     <td><img alt="Market" src="./media/market.png" style="width: 100%"></td>
     <td>
       <div style="padding: 1em">
-        <p style="font-size: 2.5em">𝓜𝓪𝓻𝓴𝓮𝓽</p>
+        <p style="font-size: 2.5em">/𝓜𝓪𝓻𝓴𝓮𝓽</p>
         <p>Upon typing <b>/market</b>, users are given a table of in-server perks available in the respective server. All perks stored in a separate database bucket, and payments are calculated with <b>cumulative</b> currency.</p>
       </div>
+    </td>
+  </tr>
+  <tr>
+    <td><img alt="Edit" src = "./media/edit.png" style="width: 100%"></td>
+    <td>
+      <p style="font-size: 2.0em"><b>/edit</b></p>
+      <p><b>/edit</b> provides users a streamlined way to change and/or upgrade their in-server perks from 𝓜𝓪𝓻𝓴𝓮𝓽. The menu of available perks to edit is dynamically displayed based on the user and their server.</p>
     </td>
   </tr>
 </table>
