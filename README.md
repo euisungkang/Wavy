@@ -48,7 +48,7 @@
 # Installation
 **【 𝓦 𝓪 𝓿 𝔂 】 is currently privately shared**
 
-Soon to be released publicly!
+Shoot me a DM @Baegi#4444 if you're interested!
 
 # Features
 ### 𝓒𝓾𝓻𝓻𝓮𝓷𝓬𝔂
