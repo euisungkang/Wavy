@@ -97,8 +97,10 @@ $rate$ *is base of 5, increased to 3 for server boosters*<br><br>
   <tr>
     <td><img alt="Edit" src = "./media/edit.png" style="width: 100%"></td>
     <td>
-      <p style="font-size: 2.0em"><b>/edit</b></p>
-      <p><b>/edit</b> provides users a streamlined way to change and/or upgrade their in-server perks from 𝓜𝓪𝓻𝓴𝓮𝓽. The menu of available perks to edit is dynamically displayed based on the user and their server.</p>
+      <div style="padding: 1em">
+        <p style="font-size: 2.0em"><b>/edit</b></p>
+        <p><b>/edit</b> provides users a streamlined way to change and/or upgrade their in-server perks from 𝓜𝓪𝓻𝓴𝓮𝓽. The menu of available perks to edit is dynamically displayed based on the user and their server.</p>
+      </div>
     </td>
   </tr>
 </table>
