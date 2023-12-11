@@ -86,7 +86,7 @@ $rate$ *is base of 5, increased to 3 for server boosters*<br><br>
 
 <div style="display:flex">
   <div style="flex: 1">
-    <img alt="Market" src="./media/market.png" style="width: 100%">
+    <img alt="Market" src="./media/market.png" style="width: 40vw">
   </div>
 
   <div style="flex: 1; align-self: center; padding: 3em">
