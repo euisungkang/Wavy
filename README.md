@@ -51,7 +51,7 @@
 Shoot me a DM `@Baegi#4444` if you're interested!
 
 # Features
-### 𝓒𝓾𝓻𝓻𝓮𝓷𝓬𝔂
+## 𝓒𝓾𝓻𝓻𝓮𝓷𝓬𝔂
 <img alt="Currency" src="https://i.ibb.co/GFpjfnX/Wide-HD.png"><br><br>
 Unlike other *Economy/Currency* Discord bots, 【 𝓦 𝓪 𝓿 𝔂 】 rewards users by **time spent** in voice channels.<br>Thus, more active members earn significantly more. <br>
 A major consideration was the amount of theoretical traffic when users are active all at once. The original approach (assigning a dedicated listener to every user) quickly became a problem as the userbase increased:
@@ -81,7 +81,7 @@ $rate$ *is base of 5, increased to 3 for server boosters*<br><br>
 **TL;DR: all users in servers with less activity will earn more coins**
 
 
-### 𝓜𝓪𝓻𝓴𝓮𝓽, `/market` `/edit`
+## 𝓜𝓪𝓻𝓴𝓮𝓽, `/market` `/edit`
 <img alt="Market" src="https://i.ibb.co/LCQV9xg/Wide-HD.png">
 
 <table>
@@ -89,7 +89,7 @@ $rate$ *is base of 5, increased to 3 for server boosters*<br><br>
     <td><img alt="Market" src="./media/market.png" style="width: 100%"></td>
     <td>
       <div style="padding: 1em">
-        <h1>𝓜𝓪𝓻𝓴𝓮𝓽</h1>
+        <p style="font-size: 2.5em">𝓜𝓪𝓻𝓴𝓮𝓽</p>
         <p>Upon typing <b>/market</b>, users are given a table of in-server perks available in the respective server. All perks stored in a separate database bucket, and payments are calculated with <b>cumulative</b> currency.</p>
       </div>
     </td>
@@ -97,17 +97,17 @@ $rate$ *is base of 5, increased to 3 for server boosters*<br><br>
 </table>
 
 
-### 𝓡𝓪𝓯𝓯𝓵𝓮𝓼, `/raffle`
+## 𝓡𝓪𝓯𝓯𝓵𝓮𝓼, `/raffle`
 <img alt="Raffles" src="https://i.ibb.co/r37ZyV7/Wide-HD.png">
 
-### 𝓒𝓪𝓼𝓲𝓷𝓸, `/casino`
+## 𝓒𝓪𝓼𝓲𝓷𝓸, `/casino`
 <img alt="Casino" src="https://i.ibb.co/dQQcVgR/Wide-HD.png">
 
-### 𝓜𝓾𝓼𝓲𝓬, `/music`
+## 𝓜𝓾𝓼𝓲𝓬, `/music`
 <img alt="Music" src="https://i.ibb.co/YXVjdLy/Wide-HD.png"><br>
 Youtube, Spotify, and other music streaming platforms have been actively shutting down Discord bots with music features. To avoid copyright offenses, 【 𝓦 𝓪 𝓿 𝔂 】 `/music` feature will play a 24/7 curated lo-fi radio at your current voice channel.
 
-### 𝓡𝓮𝓬𝓮𝓲𝓹𝓽, `/wallet` `/receipt`
+## 𝓡𝓮𝓬𝓮𝓲𝓹𝓽, `/wallet` `/receipt`
 <img alt="Receipts" src="https://i.ibb.co/xGXsy0P/Wide-HD.png"><br>
 
 `/wallet`, when used, DMs the user a simple message with monthly + cumulative earnings<br>
