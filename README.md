@@ -85,9 +85,11 @@ $rate$ *is base of 5, increased to 3 for server boosters*<br><br>
 <img alt="Market" src="https://i.ibb.co/LCQV9xg/Wide-HD.png">
 
 <div style="display:flex">
-  <img alt="Market" src="./media/market.png" style="width: 40%">
+  <div style="flex: 1">
+    <img alt="Market" src="./media/market.png" style="width: 100%">
+  </div>
 
-  <div style="align-self: center; padding: 3em">
+  <div style="flex: 1; align-self: center; padding: 3em">
     <h1>𝓜𝓪𝓻𝓴𝓮𝓽</h1>
     <p>Upon typing <b>/market</b>, users are given a table of in-server perks available in the respective server. All perks stored in a separate database bucket, and payments are calculated with <b>cumulative</b> currency.</p>
   </div>
