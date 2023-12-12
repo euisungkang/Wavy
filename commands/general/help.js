@@ -21,6 +21,10 @@ module.exports = {
             value: "Buy server perks in the 𝓦 𝓪 𝓿 𝔂  Market!"
           },
           {
+            name: "</casino:1184120489845723247>",
+            value: "Play in the 𝓦 𝓪 𝓿 𝔂  Casino, feeling lucky?"
+          },
+          {
             name: "</edit:1178663787969138718>",
             value: "Edit your perks from Wavy Market, Raffle, and more!"
           },
