@@ -534,7 +534,74 @@ async function checkNotif(id) {
     const doc = await notif.get();
     if (doc.exists) return false;
     else return true;
-  }
+}
+
+async function setTimeJoined(m) {
+    let time = new Date();
+  
+    console.log(
+      "User: " + m.username + " of ID: " + m.id + " joined VC at " + time
+    );
+  
+    let user = db.collection("wallets").doc(m.id);
+  
+    const doc = await user.get();
+    if (!doc.exists) {
+      await user
+        .set({
+          userID: m.id,
+          name: m.username,
+          currency: 0,
+          cum: 0,
+          history: 0,
+          time: time,
+        })
+        .then(() => {
+          console.log("Time Added Successfully. User first time");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      await user
+        .update({
+          time: time,
+        })
+        .then(() => {
+          console.log("Time Added Successfully");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+}
+
+async function getTimeJoined(m) {
+    let time = new Date();
+  
+    console.log(
+      "User: " + m.username + " of ID: " + m.id + " left a channel at " + time
+    );
+  
+    let user = db.collection("wallets").doc(m.id);
+    const doc = await user.get();
+    if (doc.exists && doc.data().time != null) {
+      time = doc.data().time.toDate();
+    }
+  
+    await user
+      .update({
+        time: null,
+      })
+      .then(() => {
+        console.log("Time Removed Successfully");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  
+    return time;
+}
 
 module.exports = {
     walletStatus : walletStatus,
@@ -572,4 +639,6 @@ module.exports = {
     getRolePositions : getRolePositions,
     getAllWallets : getAllWallets,
     checkNotif : checkNotif,
+    setTimeJoined : setTimeJoined,
+    getTimeJoined : getTimeJoined,
 }
