@@ -25,7 +25,7 @@ async function getEmbed(royalty, IDS) {
     let embed = new EmbedBuilder()
     .setColor('#ff6ad5')
     .setTitle('【 𝓦 𝓪 𝓿 𝔂 】 Royalty')
-    .setThumbnail('https://i.ibb.co/sPHLCMN/DALL-E-2023-11-27-17-14-20.png')
+    .setThumbnail('https://i.ibb.co/dDkc0RX/Square.png')
     
     embed.addFields({ name: "These are the <@&813024016776167485> of 𝓦 𝓪 𝓿 𝔂", value: "\u200B" })
 

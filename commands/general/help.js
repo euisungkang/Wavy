@@ -9,7 +9,7 @@ module.exports = {
         .setColor("#ff6ad5")
         .setTitle("【 𝓦 𝓪 𝓿 𝔂 】  Commands")
         .setThumbnail(
-          "https://i.ibb.co/68Ry6ws/Wavy-1.png"
+          "https://i.ibb.co/dDkc0RX/Square.png"
         )
         .addFields(
           {
@@ -40,7 +40,7 @@ module.exports = {
         )
         .setFooter({
           text: "Type commands in any  𝓦 𝓪 𝓿 𝔂  text channel",
-          iconURL: 'https://i.ibb.co/68Ry6ws/Wavy-1.png'
+          iconURL: 'https://i.ibb.co/dDkc0RX/Square.png'
         });
 
         await interaction.reply({ embeds: [embed] })
