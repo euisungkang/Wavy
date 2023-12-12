@@ -1,6 +1,6 @@
 const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
 const database = require('../../firebaseSDK');
-const market = require('../feature_comamnds/market')
+const market = require('../feature_commands/market')
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -583,7 +583,7 @@ function getEmbed() {
     let embed = new EmbedBuilder()
     .setColor('#ff6ad5')
     .setTitle('【 𝓦 𝓪 𝓿 𝔂 】 edit')
-    .setThumbnail('https://i.ibb.co/68Ry6ws/Wavy-1.png')
+    .setThumbnail('https://i.ibb.co/JxTxstb/Square-HD.png')
 
     return embed
 }

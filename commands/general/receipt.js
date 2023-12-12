@@ -67,7 +67,7 @@ function getEmbed(user) {
     let embed = new EmbedBuilder()
     .setColor('#ff6ad5')
     .setTitle("【 𝓦 𝓪 𝓿 𝔂 】  Receipts")
-    .setThumbnail('https://i.ibb.co/68Ry6ws/Wavy-1.png')
+    .setThumbnail('https://i.ibb.co/pwDQn5f/Square-HD.png')
     .setFooter({
         text: 'Try /help to learn about all 𝓦 𝓪 𝓿 𝔂 commands',
         iconURL: 'https://i.ibb.co/68Ry6ws/Wavy-1.png'
