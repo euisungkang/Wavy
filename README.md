@@ -112,6 +112,27 @@ $rate$ *is base of 5, increased to 3 for server boosters*<br><br>
 ## 𝓒𝓪𝓼𝓲𝓷𝓸: `/casino`
 <img alt="Casino" src="https://i.ibb.co/dQQcVgR/Wide-HD.png">
 
+<table>
+  <tr>
+    <td><img alt="Market" src="./media/casino.png" style="width: 100%"></td>
+    <td>
+      <div style="padding: 1em">
+        <p style="font-size: 2.5em">/𝓒𝓪𝓼𝓲𝓷𝓸</p>
+        <p>Upon typing <b>/casino</b>, users are given a selection of available mini games in the respective server. All perks stored in a separate database bucket, and payments are calculated with <b>cumulative</b> currency.</p>
+      </div>
+    </td>
+  </tr>
+  <!-- <tr>
+    <td><img alt="Market" src="./media/baw.png" style="width: 100%"></td>
+    <td>
+      <div style="padding: 1em">
+        <p style="font-size: 1.5em">Black and White</p>
+        <p>Upon typing <b>/casino</b>, users are given a selection of available mini games in the respective server. All perks stored in a separate database bucket, and payments are calculated with <b>cumulative</b> currency.</p>
+      </div>
+    </td>
+  </tr> -->
+</table>
+
 ## 𝓜𝓾𝓼𝓲𝓬: `/music`
 <img alt="Music" src="https://i.ibb.co/YXVjdLy/Wide-HD.png"><br>
 Youtube, Spotify, and other music streaming platforms have been actively shutting down Discord bots with music features. To avoid copyright offenses, 【 𝓦 𝓪 𝓿 𝔂 】 `/music` feature only plays a 24/7 curated lo-fi radio at your current voice channel.
@@ -119,11 +140,26 @@ Youtube, Spotify, and other music streaming platforms have been actively shuttin
 ## 𝓡𝓮𝓬𝓮𝓲𝓹𝓽: `/wallet` `/receipt`
 <img alt="Receipts" src="https://i.ibb.co/xGXsy0P/Wide-HD.png"><br>
 
-`/wallet`, when used, DMs the user a simple message with monthly + cumulative earnings<br>
-<img alt="/wallet" src="./media/wallet.png" style="width:50%">
-
-`/receipt`, gives users the ability to turn on/off automatic receipts after a voice channel session <br>
-<img alt="/receipt" src="./media/receipt.png" style="width:50%">
+<table>
+  <tr>
+    <td><img alt="/wallet" src="./media/wallet.png" style="width:100%"></td>
+    <td>
+      <div style="padding: 1em">
+        <p style="font-size: 2.0em">/wallet</p>
+        <p>DMs the user a simple message with monthly + cumulative earnings</p>
+      </div>
+    </td>
+  </tr>
+  <tr>
+    <td><img alt="/receipt" src="./media/receipt.png" style="width:100%"></td>
+    <td>
+      <div style="padding: 1em">
+        <p style="font-size: 2.0em"><b>/receipt</b></p>
+        <p>Gives users the ability to turn on/off automatic receipts after a voice channel session</p>
+      </div>
+    </td>
+  </tr>
+</table>
 
 # Join the community!
 
