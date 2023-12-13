@@ -45,6 +45,12 @@
 - 𝓜𝓾𝓼𝓲𝓬 : Hand-selected and curated 𝓦 𝓪 𝓿 𝔂 lo-fi radio
 - 𝓡𝓮𝓬𝓮𝓲𝓹𝓽 : Track all your earnings and spendings
 
+<br><br>**Note**
+【 𝓦 𝓪 𝓿 𝔂 】's various features used to be handled by two different bots since early 2021.<br>
+Due to Discord API updates, and ease of distribution, support of old bots have been discontinued.
+[![Queen Wavy](https://github-readme-stats.vercel.app/api/pin/?username=euisungkang&repo=queenwavy&theme=transparent)](https://github.com/euisungkang/queenwavy)
+[![King Wavy](https://github-readme-stats.vercel.app/api/pin/?username=euisungkang&repo=kingwavy&theme=transparent)](https://github.com/euisungkang/kingwavy)
+
 # Installation
 **【 𝓦 𝓪 𝓿 𝔂 】 is currently privately shared**
 
