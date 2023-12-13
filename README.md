@@ -30,7 +30,7 @@
   •
   <a href="#features">Features</a>
   •
-  <a href="#join-the-community">Community</a>
+  <a href="#history">History</a>
   •
   <a href="#license">License</a>
 </p>
@@ -44,12 +44,6 @@
 - 𝓒𝓪𝓼𝓲𝓷𝓸 : Gamble away against 𝓦 𝓪 𝓿 𝔂 members or the house
 - 𝓜𝓾𝓼𝓲𝓬 : Hand-selected and curated 𝓦 𝓪 𝓿 𝔂 lo-fi radio
 - 𝓡𝓮𝓬𝓮𝓲𝓹𝓽 : Track all your earnings and spendings
-
-<br><br>**Note**
-【 𝓦 𝓪 𝓿 𝔂 】's various features used to be handled by two different bots since early 2021.<br>
-Due to Discord API updates, and ease of distribution, support of old bots have been discontinued.
-[![Queen Wavy](https://github-readme-stats.vercel.app/api/pin/?username=euisungkang&repo=queenwavy&theme=transparent)](https://github.com/euisungkang/queenwavy)
-[![King Wavy](https://github-readme-stats.vercel.app/api/pin/?username=euisungkang&repo=kingwavy&theme=transparent)](https://github.com/euisungkang/kingwavy)
 
 # Installation
 **【 𝓦 𝓪 𝓿 𝔂 】 is currently privately shared**
@@ -167,7 +161,12 @@ Youtube, Spotify, and other music streaming platforms have been actively shuttin
   </tr>
 </table>
 
-# Join the community!
+# History
+
+【 𝓦 𝓪 𝓿 𝔂 】's various features used to be handled by two different bots since early 2021.<br>
+Due to Discord API updates, and ease of distribution, support of old bots have been discontinued.
+[![Queen Wavy](https://github-readme-stats.vercel.app/api/pin/?username=euisungkang&repo=queenwavy&theme=transparent)](https://github.com/euisungkang/queenwavy)
+[![King Wavy](https://github-readme-stats.vercel.app/api/pin/?username=euisungkang&repo=kingwavy&theme=transparent)](https://github.com/euisungkang/kingwavy)
 
 # License
 
