@@ -603,6 +603,68 @@ async function getTimeJoined(m) {
     return time;
 }
 
+async function getRaffle() {
+    let raffleID = await (
+      await db.collection("raffles").doc("metadata").get()
+    ).data().raffle_id;
+    let raffle = db.collection("raffles").doc(raffleID.toString());
+    let doc = await raffle.get();
+  
+    return doc.data();
+}
+
+async function getAllCandidates() {
+    let raffle = await raffleID();
+    let doc = await raffle.get();
+    let data = doc.data();
+  
+    let candidates = Object.keys(data.tickets_per_user);
+  
+    return candidates;
+}
+
+async function getRaffleName() {
+    let raffle = await raffleID();
+    let doc = await raffle.get();
+    let data = doc.data();
+  
+    return data.name;
+}
+
+async function getTicketsPurchased(id) {
+    let raffle = await raffleID();
+    let doc = await raffle.get();
+    let data = doc.data();
+  
+    if (id in data.tickets_per_user) return data.tickets_per_user[id];
+    else return 0;
+}
+
+async function getAllTickets() {
+    let raffle = await raffleID();
+    let doc = await raffle.get();
+    let data = doc.data();
+  
+    return data.all_tickets;
+}
+
+async function getWinner() {
+    let raffle = await raffleID();
+    let doc = await raffle.get();
+    let data = doc.data();
+  
+    return data.winner;
+}
+
+async function raffleID() {
+    let raffleID = await (
+      await db.collection("raffles").doc("metadata").get()
+    ).data().raffle_id;
+    let raffle = db.collection("raffles").doc(raffleID.toString());
+  
+    return raffle;
+}
+
 module.exports = {
     walletStatus : walletStatus,
     getMarketMessage : getMarketMessage,
@@ -641,4 +703,10 @@ module.exports = {
     checkNotif : checkNotif,
     setTimeJoined : setTimeJoined,
     getTimeJoined : getTimeJoined,
+    getRaffle : getRaffle,
+    getAllCandidates : getAllCandidates,
+    getRaffleName : getRaffleName,
+    getTicketsPurchased : getTicketsPurchased,
+    getAllTickets : getAllTickets,
+    getWinner : getWinner,
 }
