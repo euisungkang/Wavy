@@ -21,6 +21,9 @@
   <a href="https://www.npmjs.com/package/discord.js">
      <img src="https://img.shields.io/badge/discordjs-14.14.1-5d6af3" alt="discord.js">
   </a>
+  <a href="https://www.npmjs.com/package/firebase?activeTab=readme">
+      <img src="https://img.shields.io/badge/firebase-10.7.1-ffa610" alt="firebase>
+  </a>
 </p>
 
 <p align="center">
