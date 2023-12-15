@@ -136,7 +136,7 @@ An array that represents every ticket purchased by every user. Whenever a user p
 𝓡𝓪𝓯𝓯𝓵𝓮𝓼 has a safeguard against timezone differences of development and remote environments. Although unlikely, if 【 𝓦 𝓪 𝓿 𝔂 】 were to be deployed remotely for development, it can **potentially** cause unwanted behavior in raffles if countdown is considered to have reached 0 locally. Thus, raffle's centralized listener is often synced with Firebase's **UTC** time.
 #### Draw Calculation
 𝓡𝓪𝓯𝓯𝓵𝓮 follows a simple **weighted** draw equation (weighted dice problem): <br>
-$$P(i) = \dfrac{w_i}{\sum^n_{j=1}w_j}$$
+$$P(i) = \dfrac{w_i}{\Sigma_{j=1}^n w_j}$$
 where $P(i)$ is the winning probability of a given user, and $w$ is the weight based on total number of tickets purchased.
 ## 𝓒𝓪𝓼𝓲𝓷𝓸: `/casino`
 <img alt="Casino" src="https://i.ibb.co/dQQcVgR/Wide-HD.png">
