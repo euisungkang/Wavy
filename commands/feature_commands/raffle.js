@@ -16,6 +16,8 @@ module.exports = {
             return     
         }
 
+        console.log("OK")
+
         let message = await interaction.reply({ embeds: [embed], fetchReply: true })
         await message.react('<:WavyBucks:1178672306999021588>')
 
@@ -33,7 +35,7 @@ module.exports = {
 
         })
         .catch(collected => {
-            message.reply("Timed Out. Try /market again if you want to proceed")
+            message.reply("Timed Out. Try /raffle again if you want to proceed")
         })
 
         let wch = await interaction.client.channels.cache.get('962365291109707797')

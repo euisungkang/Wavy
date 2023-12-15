@@ -109,6 +109,35 @@ $rate$ *is base of 5, increased to 3 for server boosters*<br><br>
 ## 𝓡𝓪𝓯𝓯𝓵𝓮𝓼: `/raffle`
 <img alt="Raffles" src="https://i.ibb.co/r37ZyV7/Wide-HD.png">
 
+<table>
+  <tr>
+    <td><img alt="Market" src="./media/raffle.png" style="width: 100%"></td>
+    <td>
+      <div style="padding: 1em">
+        <p style="font-size: 2.5em">/𝓡𝓪𝓯𝓯𝓵𝓮</p>
+        <p>Upon typing <b>/raffle</b>, users are given the latest available raffle in the respective server. Similar to market, all raffles are stored in a separate database bucket, but payments are calculated with <b>monthly</b> currency.</p>
+      </div>
+    </td>
+  </tr>
+</table>
+
+### Examples of Raffle Winners
+<img alt="Market" src="./media/raffleWinners.png" style="width: 100%">
+
+Here's a few examples of how the bot behaves when the countdown of a raffle finishes.<br>
+Raffle draws have to consider two things: <br>
+1. Every individual ticket purchased has to be kept track of (for transaction logging)
+2. Number of tickets purchased should directly affect probability of winning<br>
+
+<img alt="newCurrency" src="./media/raffleSystem.png" style="width: 100vw"/><br>
+#### `all_tickets_purchased`
+An array that represents every ticket purchased by every user. Whenever a user purchases tickets, said array is the only bucket that is updated. Thus, read/write is guaranteed to remain at 1 with every update.<br>
+#### Local and Remote Timezones
+𝓡𝓪𝓯𝓯𝓵𝓮𝓼 has a safeguard against timezone differences of development and remote environments. Although unlikely, if 【 𝓦 𝓪 𝓿 𝔂 】 were to be deployed remotely for development, it can **potentially** cause unwanted behavior in raffles if countdown is considered to have reached 0 locally. Thus, raffle's centralized listener is often synced with Firebase's **UTC** time.
+#### Draw Calculation
+𝓡𝓪𝓯𝓯𝓵𝓮 follows a simple **weighted** draw equation (weighted dice problem): <br>
+$$P(i) = \dfrac{w_i}{\sum^n_{j=1}w_j}$$
+where $P(i)$ is the winning probability of a given user, and $w$ is the weight based on total number of tickets purchased.
 ## 𝓒𝓪𝓼𝓲𝓷𝓸: `/casino`
 <img alt="Casino" src="https://i.ibb.co/dQQcVgR/Wide-HD.png">
 
