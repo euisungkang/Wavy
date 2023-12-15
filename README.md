@@ -151,15 +151,15 @@ where $P(i)$ is the winning probability of a given user, and $w$ is the weight b
       </div>
     </td>
   </tr>
-  <!-- <tr>
+  <tr>
     <td><img alt="Market" src="./media/baw.png" style="width: 100%"></td>
     <td>
       <div style="padding: 1em">
         <p style="font-size: 1.5em">Black and White</p>
-        <p>Upon typing <b>/casino</b>, users are given a selection of available mini games in the respective server. All perks stored in a separate database bucket, and payments are calculated with <b>cumulative</b> currency.</p>
+        <p>The simplest game available in <u><b>all servers by default</b></u> is <i>Black and White</i>. The image to the left is an example run of the game. The user with less coins selects Black/White, and the house selects either Black/White/Gray. User who selected the same as the house wins the pot, Gray doubles the pot and restarts the round.</p>
       </div>
     </td>
-  </tr> -->
+  </tr>
 </table>
 
 ## 𝓜𝓾𝓼𝓲𝓬: `/music`
