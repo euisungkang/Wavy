@@ -85,7 +85,7 @@ $$Consumer\ Price\ Index\ (CPI) = \dfrac{EPU(∀servers)\ -\ EPU(server\ x)}{EPU
 $$if\ CPI\ < 0,\ CPI = 0$$
 $$Currency = \Big\lfloor \dfrac{(time\ disconnected\ -\ time\ connected) * CPI}{rate}\Big\rfloor$$
 $rate$ *is base of 5, increased to 3 for server boosters*<br><br>
-**TL;DR: all users in servers with less activity will earn more coins**
+**TL;DR: if you're in a server with low activity, you will earn more coins**
 
 
 ## 𝓜𝓪𝓻𝓴𝓮𝓽: `/market` `/edit`
