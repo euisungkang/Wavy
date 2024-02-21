@@ -53,6 +53,10 @@
 
 Shoot me a DM `@baegii` if you're interested!
 
+<a href="https://discordapp.com/users/237018129664966656">
+  <img src="https://img.shields.io/badge/Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white" alt="Discord">
+</a>
+
 # Features
 ## 𝓒𝓾𝓻𝓻𝓮𝓷𝓬𝔂
 <img alt="Currency" src="https://i.ibb.co/GFpjfnX/Wide-HD.png"><br><br>
