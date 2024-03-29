@@ -17,8 +17,6 @@ async function bootstrap() {
 
   // Map Events
   for (const [name, event] of events) {
-    console.log(`${name}: ${event}`);
-
     if (event.once) {
       client.once(event.name, (...args) => event.execute(...args));
     } else {

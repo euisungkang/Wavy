@@ -7,8 +7,8 @@ module.exports = {
     async execute(interaction: CommandInteraction) {
         if (!interaction.isCommand()) return;
 
-        const { commandName } = interaction;
-        console.log(commandName);
+        const { commandName, user } = interaction;
+        console.log(`${user.tag}: ${commandName}`)
 
         if (commands[commandName as keyof typeof commands]) {
             commands[commandName as keyof typeof commands].execute(interaction);
