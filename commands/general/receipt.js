@@ -16,10 +16,12 @@ module.exports = {
 
         // Filter to only detect one of the three given emoji choices
         const collectorFilter = (reaction, user) => {
-            return ['✅', '❌', 'WavyBucks'].includes(reaction.emoji.name) && user.id === interaction.user.id;
+            return ['✅', '❌', 'WavyBucks'].includes(reaction.emoji.name)
+                && user.id === interaction.user.id;
         };
 
-        await message.awaitReactions({ filter: collectorFilter, max: 1, time: 30000, errors: ['time'] })
+        await message.awaitReactions({ filter: collectorFilter, max: 1,
+                                       time: 30000, errors: ['time'] })
         .then(collected => {
             const reaction = collected.first()
 

@@ -9,25 +9,7 @@ module.exports = {
         let wallet = await database.getCurrency(interaction.user.id);
         let cum = await database.getCum(interaction.user.id);
 
-        var today = new Date();
-
-        var date =
-        today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
-
-        let embed = new EmbedBuilder()
-        .setColor("#ff6ad5")
-        .setTitle("【 𝓦 𝓪 𝓿 𝔂 】  Wallet")
-        .setThumbnail("https://i.ibb.co/pwDQn5f/Square-HD.png")
-        .setDescription(
-            "*Date: " +
-            date +
-            "*\n\nYour **monthly** earnings: " +
-            wallet +
-            " <:WavyBucks:1178672306999021588>" +
-            "\nYour **cumulative** earnings: " +
-            cum +
-            " <:WavyBucks:1178672306999021588>"
-        );
+        const embed = getEmbed(wallet, cum);
 
         interaction.user.send({ embeds: [embed] });
 
@@ -36,3 +18,24 @@ module.exports = {
     }
 }
 
+function getEmbed(wallet, cum) {
+    let today = new Date();
+    let date = today.getFullYear() + "-" + (today.getMonth() + 1) + "-" + today.getDate();
+
+    let embed = new EmbedBuilder()
+    .setColor("#ff6ad5")
+    .setTitle("【 𝓦 𝓪 𝓿 𝔂 】  Wallet")
+    .setThumbnail("https://i.ibb.co/pwDQn5f/Square-HD.png")
+    .setDescription(
+        "*Date: " +
+        date +
+        "*\n\nYour **monthly** earnings: " +
+        wallet +
+        " <:WavyBucks:1178672306999021588>" +
+        "\nYour **cumulative** earnings: " +
+        cum +
+        " <:WavyBucks:1178672306999021588>"
+    );
+
+    return embed;
+}

@@ -1,6 +1,5 @@
-const path = require('node:path')
-const fs = require('node:fs')
-// const database = require('./firebaseSDK')
+const path = require('path')
+const fs = require('fs')
 const { token } = require('./config.json')
 const {Client, Collection, GatewayIntentBits, Events } = require("discord.js");
 const client = new Client({
@@ -19,7 +18,6 @@ const client = new Client({
 });
 
 // Register Commands
-
 client.commands = new Collection();
 const foldersPath = path.join(__dirname, 'commands');
 const commandFolders = fs.readdirSync(foldersPath);
