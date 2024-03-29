@@ -12,17 +12,17 @@
   <a>
     <img src="https://i.ibb.co/hDtSCyV/Screenshot-2023-12-04-at-12-30-46-AM.png" alt="Total Users" height="22px">
   </a>
-  <a href="https://nodejs.org">
-     <img alt="node.js" src="https://img.shields.io/badge/nodejs-16.11-7bb864">
+  <a href="https://nestjs.com/">
+     <img alt="nest.js" src="https://img.shields.io/badge/nest.js-10.3.2-df224e">
   </a>
-  <a href="https://www.npmjs.com/package/npm">
-    <img alt="npm" src="https://img.shields.io/badge/npm-10.2%20%7C%2010.1-1d7ec0">
+  <a href="https://www.npmjs.com/package/pnpm">
+    <img alt="pnpm" src="https://img.shields.io/badge/pnpm-8.11-c60000">
+  </a>
+  <a href="https://www.npmjs.com/package/firebase?activeTab=readme">
+    <img src="https://img.shields.io/badge/firebase-10.7.1-ffa610" alt="firebase">
   </a>
   <a href="https://www.npmjs.com/package/discord.js">
      <img src="https://img.shields.io/badge/discordjs-14.14.1-5d6af3" alt="discord.js">
-  </a>
-  <a href="https://www.npmjs.com/package/firebase?activeTab=readme">
-      <img src="https://img.shields.io/badge/firebase-10.7.1-ffa610" alt="firebase">
   </a>
 </p>
 
