@@ -1,9 +1,0 @@
-node_modules
-config.json
-deploy_commands.js
-stream-auth.js
-.data
-
-.env
-.idea
-.idea/*
