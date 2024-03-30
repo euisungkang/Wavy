@@ -13,7 +13,12 @@ async function bootstrap() {
   await app.listen(3000);
 
   // Discord Client
-  const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+  const client = new Client({
+    intents: [
+      GatewayIntentBits.Guilds,
+      GatewayIntentBits.GuildVoiceStates,
+    ]
+  });
 
   // Map Events
   for (const [name, event] of events) {
