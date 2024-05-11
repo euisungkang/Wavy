@@ -1,5 +1,6 @@
-import { SlashCommandBuilder, CommandInteraction, VoiceState, GuildMember } from 'discord.js';
-import { joinVoiceChannel } from '@discordjs/voice';
+import { CommandInteraction, GuildMember, SlashCommandBuilder, VoiceState } from 'discord.js';
+import { createAudioPlayer, createAudioResource, joinVoiceChannel, NoSubscriberBehavior } from '@discordjs/voice';
+import play from 'play-dl';
 
 export const data = new SlashCommandBuilder()
   .setName('music')
@@ -21,56 +22,31 @@ export async function execute(interaction: CommandInteraction) {
     adapterCreator: interaction.guild.voiceAdapterCreator,
   });
 
-  // Success Response
-  await interaction.reply('ok');
-  return;
-}
+  // Configure Audio for Stream + Player
+  const stream = await play.stream(
+    'https://www.youtube.com/watch?v=rPjez8z61rI',
+  );
 
-// const { SlashCommandBuilder } = require('discord.js')
-// const ytdl = require('ytdl-core-discord');
-// const play = require('play-dl')
-//
-// const { joinVoiceChannel, createAudioPlayer, VoiceConnectionStatus, entersState, NoSubscriberBehavior, createAudioResource  } = require('@discordjs/voice');
-//
-// module.exports = {
-//     data: new SlashCommandBuilder()
-//         .setName('music')
-//         .setDescription('Chill to quality 𝓦 𝓪 𝓿 𝔂 lofi beats'),
-//     async execute(interaction) {
-//
-//         //console.log(interaction.member.voice.channel)
-//         let connection = joinVoiceChannel({
-//             channelId: interaction.member.voice.channel.id,
-//             guildId: interaction.guild.id,
-//             adapterCreator: interaction.guild.voiceAdapterCreator,
-//         })
-//
-//         let stream = await play.stream('https://www.youtube.com/watch?v=rPjez8z61rI')
-//         //console.log(stream)
-//         let resource = createAudioResource(stream.stream, {
-//             inputType: stream.type
-//         })
-//         //console.log(resource)
-//
-//         let player = createAudioPlayer({
-//             behaviors: {
-//                 noSubscriber: NoSubscriberBehavior.Play
-//             }
-//         })
-//
-//         try {
-//             //console.log(player)
-//             await player.play(resource)
-//
-//             let c = await connection.subscribe(player)
-//         } catch (error) {
-//             console.log(error)
-//             connection.destroy()
-//         }
-//
-//         //console.log(c)
-//
-//         await interaction.reply("Playing the 𝓦 𝓪 𝓿 𝔂 lofi radio");
-//         setTimeout(() => interaction.deleteReply(), 5000);
-//     }
-// }
+  const resource = createAudioResource(stream.stream, {
+    inputType: stream.type,
+  });
+
+  const player = createAudioPlayer({
+    behaviors: {
+      noSubscriber: NoSubscriberBehavior.Play,
+    },
+  });
+
+  // Try to connect stream to VC
+  try {
+    player.play(resource);
+    connection.subscribe(player);
+  } catch (error) {
+    console.error(error);
+    connection.destroy();
+  }
+
+  // Success Response
+  await interaction.reply('Playing 𝓦 𝓪 𝓿 𝔂 lofi radio');
+  setTimeout(() => interaction.deleteReply(), 5000);
+}
