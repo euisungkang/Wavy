@@ -17,6 +17,7 @@ async function bootstrap() {
     intents: [
       GatewayIntentBits.Guilds,
       GatewayIntentBits.GuildVoiceStates,
+      GatewayIntentBits.GuildMessages,
     ]
   });
 

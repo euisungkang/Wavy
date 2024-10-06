@@ -5,7 +5,7 @@ module.exports = {
     name: Events.ClientReady,
     once: true,
     async execute(client: Client) {
-        await deployCommands({ guildId: '' });
-        console.log(`Ready! Logged in as ${client.user.tag}`);
+        await deployCommands({ guildId: process.env.WAVY_ID! });
+        console.log(`Ready! Logged in as ${client.user!.tag}`);
     },
 };
