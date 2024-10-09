@@ -69,7 +69,7 @@ export async function execute(interaction: CommandInteraction) {
   } else {
     messageRef.edit({ embeds: [updateQueue()] });
     await interaction.reply('Added 𝓦 𝓪 𝓿 𝔂 music queue');
-    setTimeout(() => interaction.deleteReply, 5000);
+    setTimeout(() => interaction.deleteReply(), 5000);
   }
 }
 
