@@ -3,6 +3,7 @@ import {
   GuildMember,
   SlashCommandBuilder,
   VoiceState,
+  EmbedBuilder,
 } from 'discord.js';
 import {
   createAudioPlayer,
@@ -10,17 +11,32 @@ import {
   joinVoiceChannel,
   NoSubscriberBehavior,
 } from '@discordjs/voice';
-import play from 'play-dl';
+import play, { SoundCloud } from 'play-dl';
 
 export const data = new SlashCommandBuilder()
   .setName('music')
-  .setDescription('Chill to quality 𝓦 𝓪 𝓿 𝔂 lofi beats')
+  .setDescription('Listen to your songs on 𝓦 𝓪 𝓿 𝔂 radio')
   .addStringOption(option => 
     option.setName('url')
       .setDescription('SoundCloud Track URL')
       .setRequired(true)
   );
+
+export type Song = {
+  url: string,
+  info: TrackInfo,
+};
+
+export type TrackInfo = {
+  name: string,
+  artist: string,
+  thumbnail: string,
+};
   
+export const queue: Song[] = [];
+let radioInteraction: CommandInteraction;
+export let radioMessage: EmbedBuilder;
+let isPlaying = false;
 
 export async function execute(interaction: CommandInteraction) {
   const voiceState = (interaction.member as GuildMember).voice as VoiceState;
@@ -31,7 +47,6 @@ export async function execute(interaction: CommandInteraction) {
     return;
   }
 
-  //const args = interaction.content.split('play ')[1].split(' ')[0]
   const url = interaction.options.get('url');
 
   if (!url || !url.value) {
@@ -39,12 +54,39 @@ export async function execute(interaction: CommandInteraction) {
     return;
   }
 
-  console.log(url.value.toString());
+  queue.push(
+    {
+      url: url.value.toString(),
+      info: await getTrackInfo(url.value.toString())
+    }
+  );
+  
+  console.log(queue);
+
+  if (!isPlaying) {
+    playNext(interaction, voiceState);
+  } else {
+    radioInteraction.editReply({ embeds: [updateQueue()] });
+    await interaction.reply('Added 𝓦 𝓪 𝓿 𝔂 music queue');
+    setTimeout(() => interaction.deleteReply, 5000);
+  }
+}
+
+async function playNext(
+  interaction: CommandInteraction,
+  voiceState: VoiceState,
+) {
+  if (queue.length === 0) {
+    isPlaying = false;
+    radioInteraction = null;
+    radioMessage = null;
+    return;
+  }
+
+  const song = queue.shift();
 
   try {
-    const stream = await play.stream(
-      url.value.toString()
-    );
+    const stream = await play.stream(song.url);
     const resource = createAudioResource(stream.stream, {
       inputType: stream.type,
     });
@@ -55,7 +97,6 @@ export async function execute(interaction: CommandInteraction) {
       },
     });
 
-    // Connect to Voice Channel
     const connection = joinVoiceChannel({
       channelId: voiceState.channelId,
       guildId: interaction.guildId!,
@@ -66,13 +107,79 @@ export async function execute(interaction: CommandInteraction) {
     player.play(resource);
     connection.subscribe(player);
 
+    if (!isPlaying) {
+      radioMessage = playingMessage(song.info);
+      await interaction.reply({ embeds: [radioMessage] });
+      radioInteraction = interaction;
+    } else {
+      radioInteraction.editReply({ embeds: [updateCurrentSong(song.info)] });
+    }
+
+    isPlaying = true;
+
+    // Event listener for when the audio player becomes idle (track finished playing)
+    player.on('stateChange', (oldState, newState) => {
+      if (oldState.status !== 'idle' && newState.status === 'idle') {
+        playNext(interaction, voiceState);
+      }
+    });
   } catch (error) {
     console.error(error);
+    isPlaying = false;
+    radioInteraction = null;
+    radioMessage = null;
     await interaction.reply("Error playing media: check if soundcloud url is valid"); 
     return;
   }
+}
 
-  // Success Response
-  await interaction.reply('Playing 𝓦 𝓪 𝓿 𝔂 lofi radio');
-  setTimeout(() => interaction.deleteReply(), 5000);
+function playingMessage(info: TrackInfo): EmbedBuilder {
+  return new EmbedBuilder()
+    .setColor('#ff6ad5')
+    .setTitle('𝓦 𝓪 𝓿 𝔂  Radio')
+    .setThumbnail(info.thumbnail)
+    .setFields(
+      {
+        name: info.name,
+        value: info.artist,
+      },
+    )
+    .setFooter({
+      text: `${queue.length} track${queue.length == 1 ? '' : 's'} in queue`,
+    });
+}
+
+function updateQueue(): EmbedBuilder {
+  return radioMessage
+    .setFooter({
+      text: `${queue.length} tracks in queue`,
+    });
+}
+
+function updateCurrentSong(info: TrackInfo): EmbedBuilder {
+  return radioMessage
+    .setThumbnail(info.thumbnail)
+    .setFields(
+      {
+        name: info.name,
+        value: info.artist,
+      },
+    )
+    .setFooter({
+      text: `${queue.length} tracks in queue`
+    });
+}
+
+async function getTrackInfo(url: string): Promise<TrackInfo> {
+  let sc: SoundCloud = await play.soundcloud(url);
+
+  let info: TrackInfo = {
+    name: sc.name,
+    artist: sc.user.name,
+    thumbnail: 'thumbnail' in sc
+      ? sc.thumbnail
+      : 'https://i.ibb.co/q7Y9RHy/Square.png'
+  };
+
+  return info;
 }
