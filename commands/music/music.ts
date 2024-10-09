@@ -15,16 +15,27 @@ import play, { SoundCloud } from 'play-dl';
 
 export const data = new SlashCommandBuilder()
   .setName('music')
-  .setDescription('Chill to quality 𝓦 𝓪 𝓿 𝔂 lofi beats')
+  .setDescription('Listen to your songs on 𝓦 𝓪 𝓿 𝔂 radio')
   .addStringOption(option => 
     option.setName('url')
       .setDescription('SoundCloud Track URL')
       .setRequired(true)
   );
+
+export type Song = {
+  url: string,
+  info: TrackInfo,
+};
+
+export type TrackInfo = {
+  name: string,
+  artist: string,
+  thumbnail: string,
+};
   
-const queue: string[] = [];
+export const queue: Song[] = [];
 let radioInteraction: CommandInteraction;
-let radioMessage: EmbedBuilder;
+export let radioMessage: EmbedBuilder;
 let isPlaying = false;
 
 export async function execute(interaction: CommandInteraction) {
@@ -43,9 +54,15 @@ export async function execute(interaction: CommandInteraction) {
     return;
   }
 
-  queue.push(url.value.toString());
-  // console.log(queue);
+  queue.push(
+    {
+      url: url.value.toString(),
+      info: await getTrackInfo(url.value.toString())
+    }
+  );
   
+  console.log(queue);
+
   if (!isPlaying) {
     playNext(interaction, voiceState);
   } else {
@@ -66,16 +83,13 @@ async function playNext(
     return;
   }
 
-  const url = queue.shift();
+  const song = queue.shift();
 
   try {
-    let soundcloud: SoundCloud = await play.soundcloud(url);
-    const stream = await play.stream(url);
+    const stream = await play.stream(song.url);
     const resource = createAudioResource(stream.stream, {
       inputType: stream.type,
     });
-
-    // console.log(soundcloud);
 
     const player = createAudioPlayer({
       behaviors: {
@@ -83,7 +97,6 @@ async function playNext(
       },
     });
 
-    // Connect to Voice Channel
     const connection = joinVoiceChannel({
       channelId: voiceState.channelId,
       guildId: interaction.guildId!,
@@ -95,11 +108,11 @@ async function playNext(
     connection.subscribe(player);
 
     if (!isPlaying) {
-      radioMessage = playingMessage(soundcloud);
+      radioMessage = playingMessage(song.info);
       await interaction.reply({ embeds: [radioMessage] });
       radioInteraction = interaction;
     } else {
-      radioInteraction.editReply({ embeds: [updateCurrentSong(soundcloud)] });
+      radioInteraction.editReply({ embeds: [updateCurrentSong(song.info)] });
     }
 
     isPlaying = true;
@@ -112,24 +125,23 @@ async function playNext(
     });
   } catch (error) {
     console.error(error);
+    isPlaying = false;
+    radioInteraction = null;
+    radioMessage = null;
     await interaction.reply("Error playing media: check if soundcloud url is valid"); 
     return;
   }
 }
 
-function playingMessage(info: SoundCloud): EmbedBuilder {
+function playingMessage(info: TrackInfo): EmbedBuilder {
   return new EmbedBuilder()
     .setColor('#ff6ad5')
     .setTitle('𝓦 𝓪 𝓿 𝔂  Radio')
-    .setThumbnail(
-      'thumbnail' in info
-        ? info.thumbnail
-        : 'https://i.ibb.co/q7Y9RHy/Square.png'
-    )
+    .setThumbnail(info.thumbnail)
     .setFields(
       {
         name: info.name,
-        value: info.user.name,
+        value: info.artist,
       },
     )
     .setFooter({
@@ -144,12 +156,13 @@ function updateQueue(): EmbedBuilder {
     });
 }
 
-function updateCurrentSong(info: SoundCloud): EmbedBuilder {
+function updateCurrentSong(info: TrackInfo): EmbedBuilder {
   return radioMessage
+    .setThumbnail(info.thumbnail)
     .setFields(
       {
         name: info.name,
-        value: info.user.name,
+        value: info.artist,
       },
     )
     .setFooter({
@@ -157,3 +170,16 @@ function updateCurrentSong(info: SoundCloud): EmbedBuilder {
     });
 }
 
+async function getTrackInfo(url: string): Promise<TrackInfo> {
+  let sc: SoundCloud = await play.soundcloud(url);
+
+  let info: TrackInfo = {
+    name: sc.name,
+    artist: sc.user.name,
+    thumbnail: 'thumbnail' in sc
+      ? sc.thumbnail
+      : 'https://i.ibb.co/q7Y9RHy/Square.png'
+  };
+
+  return info;
+}
