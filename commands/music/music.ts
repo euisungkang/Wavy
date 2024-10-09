@@ -4,6 +4,7 @@ import {
   SlashCommandBuilder,
   VoiceState,
   EmbedBuilder,
+  Message,
 } from 'discord.js';
 import {
   createAudioPlayer,
@@ -34,7 +35,7 @@ export type TrackInfo = {
 };
   
 export const queue: Song[] = [];
-let radioInteraction: CommandInteraction;
+let messageRef: Message;
 export let radioMessage: EmbedBuilder;
 let isPlaying = false;
 
@@ -66,7 +67,7 @@ export async function execute(interaction: CommandInteraction) {
   if (!isPlaying) {
     playNext(interaction, voiceState);
   } else {
-    radioInteraction.editReply({ embeds: [updateQueue()] });
+    messageRef.edit({ embeds: [updateQueue()] });
     await interaction.reply('Added 𝓦 𝓪 𝓿 𝔂 music queue');
     setTimeout(() => interaction.deleteReply, 5000);
   }
@@ -78,7 +79,7 @@ async function playNext(
 ) {
   if (queue.length === 0) {
     isPlaying = false;
-    radioInteraction = null;
+    messageRef = null;
     radioMessage = null;
     return;
   }
@@ -110,9 +111,10 @@ async function playNext(
     if (!isPlaying) {
       radioMessage = playingMessage(song.info);
       await interaction.reply({ embeds: [radioMessage] });
-      radioInteraction = interaction;
+      messageRef = await interaction.fetchReply();
     } else {
-      radioInteraction.editReply({ embeds: [updateCurrentSong(song.info)] });
+      // messageRef = await interaction.channel.send({ embeds: [updateCurrentSong(song.info)] })
+      messageRef.edit({ embeds: [updateCurrentSong(song.info)] });
     }
 
     isPlaying = true;
@@ -126,7 +128,7 @@ async function playNext(
   } catch (error) {
     console.error(error);
     isPlaying = false;
-    radioInteraction = null;
+    messageRef = null;
     radioMessage = null;
     await interaction.reply("Error playing media: check if soundcloud url is valid"); 
     return;
