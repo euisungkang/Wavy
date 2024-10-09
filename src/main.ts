@@ -1,5 +1,3 @@
-import { readdirSync } from 'node:fs';
-import { join }from 'node:path';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { Client, Events, GatewayIntentBits } from 'discord.js';
@@ -31,6 +29,18 @@ async function bootstrap() {
   }
 
   await client.login(process.env.DISCORD_TOKEN);
+
+  process.on('unhandledRejection', async (reason, promise) => {
+    console.error(`Unhandled Rejection:\nPromise: ${promise}\nReason: ${reason}`);
+  });
+
+  process.on('uncaughtException', async (error) => {
+    console.error(`Uncaught Exception: ${error}`);
+  });
+
+  process.on('uncaughtExceptionMonitor', async (error, origin) => {
+    console.error(`Uncaught Exception Monitor:\nError: ${error}\nOrigin: ${origin}`);
+  });
 
   // Nest.js Hot Reload
   if (module.hot) {
