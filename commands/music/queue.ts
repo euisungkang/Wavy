@@ -3,8 +3,8 @@ import {
   SlashCommandBuilder,
   EmbedBuilder,
 } from 'discord.js';
-import { queue, radioMessage } from './music';
-import type { Song } from './music';
+import { queue, radioMessage } from './play';
+import type { Song } from './play';
 
 export const data = new SlashCommandBuilder()
   .setName('queue')

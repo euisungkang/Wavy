@@ -4,7 +4,11 @@ import {
   SlashCommandBuilder,
   VoiceState,
   EmbedBuilder,
+  ButtonBuilder,
+  ButtonStyle,
   Message,
+  ActionRowBuilder,
+  MessageActionRowComponentBuilder,
 } from 'discord.js';
 import {
   createAudioPlayer,
@@ -12,14 +16,14 @@ import {
   joinVoiceChannel,
   NoSubscriberBehavior,
 } from '@discordjs/voice';
-import play, { SoundCloud } from 'play-dl';
+import play, { SoundCloud, SoundCloudTrack } from 'play-dl';
 
 export const data = new SlashCommandBuilder()
-  .setName('music')
+  .setName('play')
   .setDescription('Listen to your songs on 𝓦 𝓪 𝓿 𝔂 radio')
   .addStringOption(option => 
-    option.setName('url')
-      .setDescription('SoundCloud Track URL')
+    option.setName('search-or-url')
+      .setDescription('Search Song or play SoundCloud url')
       .setRequired(true)
   );
 
@@ -44,32 +48,98 @@ export async function execute(interaction: CommandInteraction) {
 
   // If User is not in a voice channel
   if (!voiceState.channelId) {
-    await interaction.reply('not connected to a channel');
+    await interaction.reply('Connect to a channel and try again');
     return;
   }
 
-  const url = interaction.options.get('url');
+  const input = interaction.options.get('search-or-url');
 
-  if (!url || !url.value) {
-    await interaction.reply("Invalid SoundCloud url"); 
+  /* Check if input is empty */
+  if (!input && !input.value) {
+    await interaction.reply("Song Search or URL is empty"); 
     return;
+  } 
+
+  /* Check if query or URL */
+  let isURL: boolean = false;
+  try {
+    new URL(input.value.toString());
+    isURL = true;
+  } catch (error) {
+    isURL = false;
   }
 
-  queue.push(
-    {
-      url: url.value.toString(),
-      info: await getTrackInfo(url.value.toString())
+  let info: TrackInfo;
+  if (isURL) {
+    try {
+      const url: string = input.value.toString();
+      info = await getTrackInfo(url);
+
+      queue.push(
+        {
+          url: url,
+          info: info,
+        }
+      );
+    } catch (error) {
+      await interaction.reply("Invalid SoundCloud url: only SoundCloud Track links are supported");
+      return;
     }
-  );
-  
-  console.log(queue);
 
-  if (!isPlaying) {
-    playNext(interaction, voiceState);
+    /* Play or add to queue */
+    if (!isPlaying) {
+      playNext(interaction, voiceState);
+    } else {
+      messageRef.edit({ embeds: [updateQueue()] });
+      await interaction.reply({ embeds: [queueMessage(info)] });
+      setTimeout(() => interaction.deleteReply(), 10000);
+    }
+  /* Search and let user choose song to play */
   } else {
-    messageRef.edit({ embeds: [updateQueue()] });
-    await interaction.reply('Added 𝓦 𝓪 𝓿 𝔂 music queue');
-    setTimeout(() => interaction.deleteReply(), 5000);
+    const query: string = input.value.toString();
+    const tracks: SoundCloudTrack[] = await play.search(query, {
+      limit: 4,
+      source: {
+        soundcloud: 'tracks',
+      },
+    });
+
+    let buttons: ButtonBuilder[] = [];
+    tracks.forEach(t => {
+      buttons.push(
+        new ButtonBuilder()
+          .setCustomId(t.id.toString())
+          .setLabel(t.name)
+          .setStyle(ButtonStyle.Primary)
+      );
+    });
+
+    const row = new ActionRowBuilder<MessageActionRowComponentBuilder>()
+      .addComponents(buttons);
+
+    const cancelRow = new ActionRowBuilder<MessageActionRowComponentBuilder>()
+      .addComponents(
+        new ButtonBuilder()
+          .setCustomId('cancel')
+          .setLabel('Cancel')
+          .setStyle(ButtonStyle.Danger)
+      );
+
+    await interaction.reply({ 
+      embeds: [trackSelectionMessage(tracks)],
+      components: [row, cancelRow],
+    });
+
+    // /* Play or add to queue */
+    // if (!isPlaying) {
+    //   playNext(interaction, voiceState);
+    // } else {
+    //   messageRef.edit({ embeds: [updateQueue()] });
+    //   await interaction.reply({ embeds: [queueMessage(info)] });
+    //   setTimeout(() => interaction.deleteReply(), 10000);
+    // }
+
+    console.log(tracks);
   }
 }
 
@@ -113,7 +183,6 @@ async function playNext(
       await interaction.reply({ embeds: [radioMessage] });
       messageRef = await interaction.fetchReply();
     } else {
-      // messageRef = await interaction.channel.send({ embeds: [updateCurrentSong(song.info)] })
       messageRef.edit({ embeds: [updateCurrentSong(song.info)] });
     }
 
@@ -148,6 +217,42 @@ function playingMessage(info: TrackInfo): EmbedBuilder {
     )
     .setFooter({
       text: `${queue.length} track${queue.length == 1 ? '' : 's'} in queue`,
+    });
+}
+
+function queueMessage(info: TrackInfo): EmbedBuilder {
+  return new EmbedBuilder()
+    .setColor("#ff6ad5")
+    .setTitle('Song Added to 𝓦 𝓪 𝓿 𝔂  Radio')
+    .setThumbnail(info.thumbnail)
+    .setFields(
+      {
+        name: info.name,
+        value: info.artist,
+      },
+    )
+    .setFooter({
+      text: `${queue.length} track${queue.length == 1 ? '' : 's'} in queue`,
+    });
+}
+
+function trackSelectionMessage(tracks: SoundCloudTrack[]): EmbedBuilder {
+  let songs = [];
+  tracks.forEach(t => {
+    songs.push(
+      {
+        name: t.name,
+        value: t.user.name,
+      },
+    );
+  });
+  return new EmbedBuilder()
+    .setColor("#ff6ad5")
+    .setTitle('Select a Song to Add to 𝓦 𝓪 𝓿 𝔂  Radio')
+    .setThumbnail('https://i.ibb.co/q7Y9RHy/Square.png')
+    .setFields(songs)
+    .setFooter({
+      text: `${queue.length} tracks in queue`,
     });
 }
 

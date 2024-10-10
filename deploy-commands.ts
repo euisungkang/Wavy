@@ -10,6 +10,19 @@ type DeployCommandsProps = {
 
 export async function deployCommands({ guildId }: DeployCommandsProps) {
   try {
+    // await rest.put(
+    //     Routes.applicationCommands(process.env.CLIENT_ID!),
+    //     {
+    //       body: []
+    //     },
+    // );
+    // await rest.put(
+    //     Routes.applicationGuildCommands(process.env.CLIENT_ID!, guildId),
+    //     {
+    //       body: []
+    //     },
+    // );
+
     await rest.put(
       guildId == ''
         ? Routes.applicationCommands(process.env.CLIENT_ID!)
